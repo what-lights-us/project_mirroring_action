@@ -26,7 +26,6 @@ async function run(): Promise<void> {
 		child_repository: core.getInput('child_repository'),
 		child_project_number: Number(core.getInput('child_project_number')),
 	}
-	core.info(JSON.stringify(inputs))
 	const parent_octokit = github.getOctokit(inputs.parent_token)
 	const [parent_owner, parent_repo] = inputs.parent_repository.split('/')
 
@@ -40,13 +39,10 @@ async function run(): Promise<void> {
 	const issue = (await parent_octokit.rest.issues.get(issue_id)).data
 	const found_label = issue.labels
 		.find(label => {
-			core.info(`Here, mirror ${inputs.mirror_tag_name}: ${typeof label}`)
 			switch (typeof label) {
 				case "string":
-					core.info(`String: ${label == inputs.mirror_tag_name}`)
 					return label == inputs.mirror_tag_name
 				case "object":
-					core.info(`object: ${label == inputs.mirror_tag_name}`)
 					return label.name == inputs.mirror_tag_name
 			}
 		})
@@ -66,10 +62,12 @@ async function run(): Promise<void> {
 		return
 	}
 
+	core.info("Fetching parent columns")
 	let parent_column_promise = parent_octokit.rest.projects.listColumns({
 		project_id: inputs.parent_project_number
 	}).then(response => response.data)
 	
+	core.info("Searching for project card")
 	const parent_card = await parent_column_promise
 		.then(columns => {
 			return Promise.all(columns.map(column => {
