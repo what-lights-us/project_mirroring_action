@@ -20,7 +20,7 @@ inputs:
     description: "The ID of the issue on the parent board triggering an update to child"
     default: ${{ github.event.issue.number }}
     required: true
-  mirror_tag:
+  mirror_tag_name:
     description: "Tag name in parent project to track children to tag"
     required: true
   child_token:
