@@ -29253,12 +29253,13 @@ function run() {
         const issue = (yield parent_octokit.rest.issues.get(issue_id)).data;
         const found_label = issue.labels
             .find(label => {
-            core.info(`this label: ${JSON.stringify(label)}`);
-            return label.toString() == inputs.mirror_tag_name;
+            switch (typeof label) {
+                case "string":
+                    return label == inputs.mirror_tag_name;
+                case "object":
+                    return label.name == inputs.mirror_tag_name;
+            }
         });
-        core.info(`first issue: ${JSON.stringify(issue.labels[0].valueOf())}`);
-        core.info(`issue labels: ${JSON.stringify(issue.labels)}`);
-        core.info(`found issue labels: ${found_label}`);
         if (found_label == undefined) {
             core.info("Issue does not have a mirroring tag");
             return;
