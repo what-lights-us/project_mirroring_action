@@ -29227,7 +29227,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
-const mirror_regex = /\* Mirror: (https:\/\/github.com\/(.*)\/(.*)\/issues\/(\d+))/;
+const mirror_regex = /\* Mirror: (https:\/\/github\.com\/(.*)\/(.*)\/issues\/(\d+))/;
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const inputs = {
@@ -29249,10 +29249,13 @@ function run() {
             repo: parent_repo,
             issue_number: inputs.issue_number,
         };
+        core.info("fetching touched issue");
         const issue = (yield parent_octokit.rest.issues.get(issue_id)).data;
         const found_label = issue.labels
             .find(label_name => label_name == inputs.mirror_tag_name);
-        if (found_label == undefined || found_label != inputs.mirror_tag_name) {
+        core.info(`issue labels: ${issue.labels}`);
+        core.info(`found issue labels: ${found_label}`);
+        if (found_label == undefined) {
             core.info("Issue does not have a mirroring tag");
             return;
         }
