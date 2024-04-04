@@ -1,0 +1,23 @@
+name: "Project Mirroring Action"
+description: "GitHub action to mirror the project cards between two GitHub projects"
+inputs:
+  parent_token:
+    description: "GITHUB_TOKEN or a repo scoped PAT"
+    default: ${{ github.token }}
+  parent_repository:
+    description: "The parent repo"
+    default: ${{ github.repository }}
+  parent_project_number:
+    description: "Number of the project to be mirrored"
+  issue_number:
+    description: "The ID of the issue on the parent board triggering an update to child"
+    default: ${{ github.event.issue.number }}
+  mirror_tag:
+    description: "Tag name in parent project to track children to tag"
+  child_token:
+    description: "Repo scoped PAT"
+  child_project_number:
+    description: "Number of the project mirroring"
+runs:
+  using: "node20"
+  main: "dist/index.js"
