@@ -44,6 +44,7 @@ async function run(): Promise<void> {
 			return label.toString() == inputs.mirror_tag_name
 		})
 
+	core.info(`first issue: ${JSON.stringify(issue.labels[0].valueOf())}`)
 	core.info(`issue labels: ${JSON.stringify(issue.labels)}`)
 	core.info(`found issue labels: ${found_label}`)
 	if (found_label == undefined) {
