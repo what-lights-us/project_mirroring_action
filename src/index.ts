@@ -39,9 +39,9 @@ async function run(): Promise<void> {
 	core.info("fetching touched issue")
 	const issue = (await parent_octokit.rest.issues.get(issue_id)).data
 	const found_label = issue.labels
-		.find(label_name => label_name == inputs.mirror_tag_name)
+		.find(label => label.toString() == inputs.mirror_tag_name)
 
-	core.info(`issue labels: ${issue.labels}`)
+	core.info(`issue labels: ${JSON.stringify(issue.labels)}`)
 	core.info(`found issue labels: ${found_label}`)
 	if (found_label == undefined) {
 		core.info("Issue does not have a mirroring tag")
