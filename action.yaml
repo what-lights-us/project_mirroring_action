@@ -3,7 +3,7 @@ description: "GitHub action to mirror the project cards between two GitHub proje
 inputs:
   trigger:
     description: "The action trigger"
-    default: ${{ github.event }}
+    default: ${{ github.event_name }}
     required: true
   parent_token:
     description: "GITHUB_TOKEN or a repo scoped PAT"
