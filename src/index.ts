@@ -91,13 +91,16 @@ async function run(): Promise<void> {
 	}
 	const parent_column_name: string = parent_card.column_name 
 
+	core.info("Setting up child client")
 	const child_octokit = github.getOctokit(inputs.child_token)
 	const child_issue_url = mirroring[1]
 
+	core.info("Fetching child columns")
 	const child_column_promise = child_octokit.rest.projects.listColumns({
 		project_id: inputs.child_project_number
 	}).then(response => response.data)
 
+	core.info("Fetching child card")
 	const child_card = await child_column_promise
 		.then(columns => {
 			return Promise.all(columns.map(column => {
@@ -115,6 +118,7 @@ async function run(): Promise<void> {
 			return card
 		})
 
+	core.info("Attempting card move")
 	return Promise.all([parent_column_promise, child_column_promise, child_card])
 		.then(promises => {
 			const child_column = promises[1]
