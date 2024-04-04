@@ -40,10 +40,13 @@ async function run(): Promise<void> {
 	const issue = (await parent_octokit.rest.issues.get(issue_id)).data
 	const found_label = issue.labels
 		.find(label => {
+			core.info(`Here, mirror ${inputs.mirror_tag_name}: ${typeof label}`)
 			switch (typeof label) {
 				case "string":
+					core.info(`String: ${label == inputs.mirror_tag_name}`)
 					return label == inputs.mirror_tag_name
 				case "object":
+					core.info(`object: ${label == inputs.mirror_tag_name}`)
 					return label.name == inputs.mirror_tag_name
 			}
 		})
