@@ -1,6 +1,9 @@
 name: "Project Mirroring Action"
 description: "GitHub action to mirror the project cards between two GitHub projects"
 inputs:
+  trigger:
+    description: "The action trigger"
+    default: ${{ github.event }}
   parent_token:
     description: "GITHUB_TOKEN or a repo scoped PAT"
     default: ${{ github.token }}
@@ -16,6 +19,8 @@ inputs:
     description: "Tag name in parent project to track children to tag"
   child_token:
     description: "Repo scoped PAT"
+  child_repository:
+    description: "The child repo"
   child_project_number:
     description: "Number of the project mirroring"
 runs:
