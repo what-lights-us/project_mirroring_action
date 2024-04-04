@@ -39,7 +39,10 @@ async function run(): Promise<void> {
 	core.info("fetching touched issue")
 	const issue = (await parent_octokit.rest.issues.get(issue_id)).data
 	const found_label = issue.labels
-		.find(label => label.toString() == inputs.mirror_tag_name)
+		.find(label => {
+			core.info(`this label: ${JSON.stringify(label)}`)
+			return label.toString() == inputs.mirror_tag_name
+		})
 
 	core.info(`issue labels: ${JSON.stringify(issue.labels)}`)
 	core.info(`found issue labels: ${found_label}`)
