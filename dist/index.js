@@ -29241,7 +29241,7 @@ function run() {
             child_repository: core.getInput('child_repository'),
             child_project_number: Number(core.getInput('child_project_number')),
         };
-        core.info(inputs.trigger);
+        core.info(JSON.stringify(inputs));
         const parent_octokit = github.getOctokit(inputs.parent_token);
         const [parent_owner, parent_repo] = inputs.parent_repository.split('/');
         const issue_id = {
