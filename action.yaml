@@ -4,25 +4,34 @@ inputs:
   trigger:
     description: "The action trigger"
     default: ${{ github.event }}
+    required: true
   parent_token:
     description: "GITHUB_TOKEN or a repo scoped PAT"
     default: ${{ github.token }}
+    required: true
   parent_repository:
     description: "The parent repo"
     default: ${{ github.repository }}
+    required: true
   parent_project_number:
     description: "Number of the project to be mirrored"
+    required: true
   issue_number:
     description: "The ID of the issue on the parent board triggering an update to child"
     default: ${{ github.event.issue.number }}
+    required: true
   mirror_tag:
     description: "Tag name in parent project to track children to tag"
+    required: true
   child_token:
     description: "Repo scoped PAT"
+    required: true
   child_repository:
     description: "The child repo"
+    required: true
   child_project_number:
     description: "Number of the project mirroring"
+    required: true
 runs:
   using: "node20"
   main: "dist/index.js"

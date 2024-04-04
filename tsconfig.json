@@ -2,10 +2,12 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
+		"types": [],
     "lib": [
-      "es6"
+      "es6",
+			"esnext.asynciterable"
     ],
-    "outDir": "./lib",
+    "outDir": "./dist",
     "rootDir": "./src",
     "declaration": true,
     "strict": true,
