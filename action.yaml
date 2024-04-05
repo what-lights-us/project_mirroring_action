@@ -7,7 +7,7 @@ inputs:
     required: true
   parent_token:
     description: "GITHUB_TOKEN or a repo scoped PAT"
-    default: ${{ github.token }}
+    default: ${{ secrets.GITHUB_TOKEN }}
     required: true
   parent_repository:
     description: "The parent repo"
